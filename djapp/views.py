@@ -14,5 +14,8 @@ def register(request):
         if form.is_valid():
             form.save()
     context={'form':form}
-    return render(request,'register.html',context)
+    return render(request,'djapp/register.html',context)
         
+def login(request):
+    context={}
+    return render (request,'djapp/login.html',context)
