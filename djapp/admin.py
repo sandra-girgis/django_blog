@@ -34,6 +34,13 @@ class CommentAdmin(admin.ModelAdmin):
     )
     list_display = ('Text','Post_id','User_id') #'Time',
 
+#samah
+class PostlikeAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ['User Details',{'fields':['Islike','Isdislike','Post_id','User_id']}],
+    )
+    list_display = ('Islike','Isdislike','Post_id','User_id')
+
 #rehab
 class WordAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -50,5 +57,7 @@ admin.site.register(Category,CategoryAdmin)
 admin.site.register(Comment,CommentAdmin)
 #youmna
 admin.site.register(Tag,TagAdmin)
+#samah
+admin.site.register(Postlike,PostlikeAdmin)
 #rehab
 admin.site.register(Word,WordAdmin)
