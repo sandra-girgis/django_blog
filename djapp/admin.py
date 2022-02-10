@@ -27,6 +27,15 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('Name',)
     search_fields = ['Name']
 
+
+#omar
+class PostAdmin(admin.ModelAdmin):
+    fieldsets = ( # picture is string [url]
+        ['User Details',{'fields':['Title','Picture','Content','Post_category','User_id','Tags']}], #'Likes','Dislikes','Date',
+    )
+    list_display = ('Title','Picture','Content','Likes','Dislikes','Post_category','User_id') #'Date',
+
+
 #sandra
 class CommentAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -50,6 +59,8 @@ class WordAdmin(admin.ModelAdmin):
     search_fields = ['Name']
 
 
+
+
 #REEM
 admin.site.register(User,UserAdmin) # table.model , customized model
 admin.site.register(Category,CategoryAdmin)
@@ -57,6 +68,8 @@ admin.site.register(Category,CategoryAdmin)
 admin.site.register(Comment,CommentAdmin)
 #youmna
 admin.site.register(Tag,TagAdmin)
+#omar
+admin.site.register(Post,PostAdmin)
 #samah
 admin.site.register(Postlike,PostlikeAdmin)
 #rehab
