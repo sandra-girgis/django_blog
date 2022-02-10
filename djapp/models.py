@@ -35,6 +35,12 @@ class Comment(models.Model):
     def _str_(self):
         return self.Text
 
+#samah
+class Word(models.Model):
+    Name = models.CharField(max_length = 50, null = False)
+    def __str__(self):
+        return self.Name
+        
 #sandra
 class Postlike(models.Model):
     Islike = models.BooleanField(default=False)
