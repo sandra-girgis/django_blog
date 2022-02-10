@@ -5,6 +5,20 @@ from django.db import models
 # models classes are tables
 # first to create
 
+
+#youmna
+class Post(models.Model):
+    Title = models.CharField(max_length = 100, null = False)
+    Picture = models.CharField(max_length = 100, null = False)
+    Content = models.CharField(max_length = 50, null = False)
+    Date = models.DateTimeField()
+    Likes = models.IntegerField(default=0)
+    Dislikes = models.IntegerField(default=0)
+    Post_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    User_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    Tags = models.ManyToManyField(Tag)
+    def __str__(self):
+        return self.Title
 #sandra
 class Postlike(models.Model):
     Islike = models.BooleanField(default=False)
