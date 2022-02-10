@@ -5,6 +5,27 @@ from django.db import models
 # models classes are tables
 # first to create
 
+#omar
+class Category(models.Model):
+    Name = models.CharField(max_length = 50, null = False) 
+    # Category object
+    def _str_(self):
+        return self.Name
+
+#omar
+class User(models.Model):
+    Username = models.CharField(max_length = 50, null = False)
+    Password = models.CharField(max_length = 50, null = False)
+    Email = models.EmailField(max_length = 50, null = False) # @ . 
+    Isadmin = models.BooleanField(default=False) # boolean True False
+    Isblocked = models.BooleanField(default=False) # boolean True False
+    Categories = models.ManyToManyField(Category) # many to many relationship
+    def _str_(self):
+        return self.Username
+    # ui for true and false advanced
+    Isadmin.boolean = True 
+    Isblocked.boolean = True
+
 #REEM
 class Tag(models.Model):
     Name = models.CharField(max_length = 50, null = False)
