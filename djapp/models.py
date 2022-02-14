@@ -1,6 +1,7 @@
 #sandra
 # Create your models here.
 from django.db import models
+
 # Create your models here.
 # models classes are tables
 # first to create
@@ -45,7 +46,7 @@ class Post(models.Model):
     Tags = models.ManyToManyField(Tag)
     def __str__(self):
         return self.Title
-
+    
 
 #rehab
 class Comment(models.Model):
