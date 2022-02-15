@@ -8,5 +8,6 @@ urlpatterns = [
     path('register/', views.register, name='register' ) ,
     path('login/', views.loginPg, name='login' ) ,
     path('signout', views.signoutPg, name='signout'),
-    path('subscribe/<int:id>',views.subscribe,name='subscribe-to-category')
+    path('subscribe/<int:id>',views.subscribe,name='subscribe-to-category'),
+    path('unsubscribe/<int:id>',views.unsubscribe,name='unsubscribe-to-category')
 ]

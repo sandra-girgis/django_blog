@@ -83,3 +83,10 @@ def subscribe(request,id):
     adding_to_model = CategoryMembership(userr=userr,categoryy=categoryy)
     adding_to_model.save()
     return redirect('home')
+
+@login_required(login_url='login')       
+def unsubscribe(request,id):
+    userr = request.user
+    categoryy = Category.objects.get(id=id)
+    CategoryMembership.objects.filter(userr=userr,categoryy=categoryy).delete()
+    return redirect('home')   
