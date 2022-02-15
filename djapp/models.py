@@ -1,9 +1,15 @@
 #sandra
 # Create your models here.
+from importlib.resources import path
+from unicodedata import category
 from django.db import models
+from django.contrib.auth.models import User
 # Create your models here.
 # models classes are tables
-# first to create
+# first to create  
+
+
+
 
 #omar
 class Category(models.Model):
@@ -11,19 +17,7 @@ class Category(models.Model):
     # Category object
     def __str__(self):
         return self.Name
-#omar
-class User(models.Model):
-    Username = models.CharField(max_length = 50, null = False)
-    Password = models.CharField(max_length = 50, null = False)
-    Email = models.EmailField(max_length = 50, null = False) # @ . 
-    Isadmin = models.BooleanField(default=False) # boolean True False
-    Isblocked = models.BooleanField(default=False) # boolean True False
-    Categories = models.ManyToManyField(Category) # many to many relationship
-    def __str__(self):
-        return self.Username
-    # ui for true and false advanced
-    Isadmin.boolean = True 
-    Isblocked.boolean = True
+
     
 #reem
 class Tag(models.Model):
@@ -34,7 +28,7 @@ class Tag(models.Model):
 class Post(models.Model):
     Title = models.CharField(max_length = 100, null = False)
     Picture = models.CharField(max_length = 100, null = False)
-    Content = models.CharField(max_length = 50, null = False)
+    Content = models.TextField(max_length = 4000, null = False)
     Date = models.DateTimeField()
     Likes = models.IntegerField(default=0)
     Dislikes = models.IntegerField(default=0)
@@ -65,3 +59,10 @@ class Postlike(models.Model):
     User_id = models.ForeignKey(User, on_delete=models.CASCADE)
     Islike.boolean = True
     Isdislike.boolean = True
+
+
+class CategoryMembership(models.Model):
+    userr = models.ForeignKey(User,on_delete=models.CASCADE)
+    categoryy = models.ForeignKey(Category,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.userr.username + " subscribed to " +self.categoryy.Name

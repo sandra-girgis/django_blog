@@ -1,8 +1,6 @@
 {% extends 'djapp/base.html' %}
-
 {% block title_block %}
 {% endblock %}
-
 {% block main_block%}
 <html>
     <head></head>
@@ -14,34 +12,15 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
+              {% for cat in categories %}
               <li class="nav-item">
                 <a href="#" style="color:white" class="nav-link" aria-current="page">
                   <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                  Sports
+                  {{cat.Name}}
                 </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
+                <button type="button" class="btn btn-primary"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
               </li>
-              <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                  News
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                  Politics
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                  Entertainment
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
+              {% endfor %}
             </ul>
           </div>
     </body>

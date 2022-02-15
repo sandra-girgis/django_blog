@@ -3,13 +3,13 @@ from django.contrib import admin
 from .models import *
 #reem
 # Register your models here.
-class UserAdmin(admin.ModelAdmin):
-    fieldsets = (
-        ['User Details',{'fields':['Username','Password','Email','Isadmin','Isblocked']}], #show on create
-    )
-    list_display = ('Username','Password','Email','Isadmin','Isblocked') # show users list
-    list_filter = ['Username','Email','Isadmin','Isblocked'] # advanced
-    search_fields = ['Username','Email','Isadmin','Isblocked'] # advanced
+# class UserAdmin(admin.ModelAdmin):
+#     fieldsets = (
+#         ['User Details',{'fields':['Username','Password','Email','Isadmin','Isblocked']}], #show on create
+#     )
+#     list_display = ('Username','Password','Email','Isadmin','Isblocked') # show users list
+#     list_filter = ['Username','Email','Isadmin','Isblocked'] # advanced
+#     search_fields = ['Username','Email','Isadmin','Isblocked'] # advanced
 #reem
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -53,7 +53,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 # to show the tables in the site
 #reem
-admin.site.register(User,UserAdmin) # table.model , customized model
+# admin.site.register(User,UserAdmin) # table.model , customized model
 admin.site.register(Category,CategoryAdmin)
 #youmna
 admin.site.register(Tag,TagAdmin)
@@ -65,3 +65,5 @@ admin.site.register(Postlike,PostlikeAdmin)
 admin.site.register(Word,WordAdmin)
 #sandra
 admin.site.register(Comment,CommentAdmin)
+
+admin.site.register(CategoryMembership)
