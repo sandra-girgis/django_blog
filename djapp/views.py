@@ -54,6 +54,4 @@ def register(request):
         context = {'signup_form': signup_form}
         return render(request, 'djapp/register.html', context)
         
-def login(request):
-    context={}
-    return render (request,'djapp/login.html',context)
+
