@@ -42,7 +42,6 @@ def loginPg(request):
         return render(request, 'djapp/login.html')
 
 
-
 def signoutPg(request):
     logout(request)
     return redirect('login')
