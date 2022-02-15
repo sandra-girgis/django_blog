@@ -18,8 +18,12 @@
                   <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                   {{cat.Name}}
                 </a>
+
+                {% if cat.Name in my_category %}
+                  <button type="button" class="btn btn-primary"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
+                {% else %}
                 <button type="button" class="btn btn-primary"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
-                <button type="button" class="btn btn-primary"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
+                {% endif %}
               </li>
               {% endfor %}
             </ul>

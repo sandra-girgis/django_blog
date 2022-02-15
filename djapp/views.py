@@ -72,9 +72,16 @@ def register(request):
 @login_required(login_url='login')
 def home(request):
     categoryyy = Category.objects.all()
-    context = {'categories': categoryyy}
-    return render(request,'djapp/home.html',context=context)
-
+    if request.user.id != None:
+        x = []
+        cat = CategoryMembership.objects.filter(userr=request.user.id)
+        for i in cat :
+            x.append(i.categoryy.Name)
+        context = {'categories': categoryyy,'my_category':x}
+        return render(request,'djapp/home.html',context=context)
+    else:
+        context = {'categories': categoryyy}
+        return render(request,'djapp/home.html',context=context)
        
 @login_required(login_url='login')       
 def subscribe(request,id):
