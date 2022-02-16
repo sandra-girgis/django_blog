@@ -1,49 +1,74 @@
 {% extends 'djapp/base.html' %}
-
-{% block title_block %}
-{% endblock %}
-
+{% load static %} 
+{% block title_block %} 
+{% endblock %} 
 {% block main_block%}
 <html>
-    <head></head>
-    <body>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-              <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-              <span class="fs-4">Categories</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-              <li class="nav-item">
-                <a href="#" style="color:white" class="nav-link" aria-current="page">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                  Sports
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                  News
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                  Politics
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
-              <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                  Entertainment
-                </a>
-                <button type="button" class="btn btn-primary">Subscribe</button>
-              </li>
-            </ul>
+  <head></head>
+  <body>
+    <div  style= "position: relative;">
+    <div class="row">
+      <div class="col-md-3" style=" background-color: black;">
+        <div
+          class="d-flex flex-column flex-shrink-0 p-3 text-white"
+          style="width: 280px" 
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+          >
+            <svg class="bi me-2" width="40" height="32">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+            <span class="fs-4" style="height:100px;">Categories</span>
+          </a>
+          <hr />
+          <ul class="nav nav-pills flex-column mb-auto">
+            {% for cat in categories %}
+            <li class="nav-item">
+              <a
+                href="#"
+                style="color: white"
+                class="nav-link"
+                aria-current="page"
+              >
+                <svg class="bi me-2" width="16" height="16">
+                  <use xlink:href="#home"></use>
+                </svg>
+                {{cat.Name}}
+              </a>
+              <!-- if user login show Subscribe and unSubscribe -->
+              {% if request.user.id %}
+              {% if cat.Name in my_category %}
+                <button type="button" class="btn btn-primary"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
+                {% else %}
+                <button type="button" class="btn btn-primary"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
+              {% endif %}
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+<!-- ------------------------------------------------------------------------- -->
+      <div class="col-md-9">
+        {% for post in posts %}
+          <div class="card" style="width:100%">
+            <img
+              src="{% static 'img/' %}{{post.Picture}}"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body col-12 ">
+              <h5 class="card-title">{{post.Title}}</h5>
+              <p class="card-text">{{post.Content}}</p>
+            </div>
           </div>
-    </body>
+        {% endfor %}
+<!-- --------------------------------------------------------------- -->
+      </div>
+    </div>
+  </div>
+  </body>
 </html>
 {% endblock %}

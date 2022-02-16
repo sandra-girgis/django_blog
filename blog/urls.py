@@ -5,3 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('djapp/', include('djapp.urls')),
 ]
+
+

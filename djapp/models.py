@@ -9,7 +9,6 @@ class Category(models.Model):
     # Category object
     def __str__(self):
         return self.Name
-
 #reem
 class Tag(models.Model):
     Name = models.CharField(max_length = 50, null = False,)
@@ -54,9 +53,9 @@ class Postlike(models.Model):
     Islike.boolean = True
     Isdislike.boolean = True
 
-#omar
+
 class CategoryMembership(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    userr = models.ForeignKey(User,on_delete=models.CASCADE)
+    categoryy = models.ForeignKey(Category,on_delete=models.CASCADE)
     def __str__(self):
-        return self.user.username + " subscribed To " +self.category.Name
+        return self.userr.username + " subscribed To " +self.categoryy.Name
