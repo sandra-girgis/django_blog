@@ -78,3 +78,38 @@ def unsubscribe(request,id):
     categoryy = Category.objects.get(id=id)
     CategoryMembership.objects.filter(userr=userr,categoryy=categoryy).delete()
     return redirect('home')
+
+##########
+def addUser(request):
+    if request.method == "POST":
+        form = UForm(request.POST)
+        # date
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+        else:
+            context = { 'form' : form }
+            return render(request,'djapp/u_add.html',context)
+    else:
+        form = UForm()
+        context = { 'form' : form }
+        return render(request,'djapp/u_add.html',context)
+
+def delUser(request,u_id):
+    user = User.objects.get(id = u_id)
+    user.delete()
+    return redirect('blog')
+
+def addPost(request):
+    if request.method == "POST":
+        form = PForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+        else:
+            context = { 'form' : form }
+            return render(request,'djapp/p_add.html',context)
+    else:
+        form = PForm()
+        context = { 'form' : form }
+        return render(request,'djapp/p_add.html',context)
