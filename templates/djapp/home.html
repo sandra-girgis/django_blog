@@ -1,13 +1,12 @@
 {% extends 'djapp/base.html' %}
 {% load static %} 
 {% block main_block%}
-<html>
-  <head></head>
-  <body>
+
+
     <!-- <div class="container"> -->
     <!-- <div  style= "position: relative;"> -->
     <div class="row">
-      <div class="col-md-3" style=" background-color: #7abecc;">
+      <div class="col-md-2" style=" background-color: #7abecc;">
         <div
           class="d-flex flex-column flex-shrink-0 p-3 text-white"
           style="width: 280px" 
@@ -45,7 +44,7 @@
         </div>
       </div>
 <!-- ------------------------------------------------------------------------- -->
-      <div class="col-md-9">
+      <div class="col-md-10">
         {% for post in posts %}
           <div class="card" style="width:100%">
             <img src="{% static 'img/' %}{{post.Picture}}" class="card-img-top" alt="..."/>
@@ -61,6 +60,5 @@
     </div>
   <!-- </div> -->
     <!-- </div> -->
-  </body>
-</html>
+ 
 {% endblock %} 
