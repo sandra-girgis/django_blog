@@ -4,11 +4,18 @@
 <html>
   <head></head>
   <body>
-    <div style= "position: relative;">
+    <!-- <div class="container"> -->
+    <!-- <div  style= "position: relative;"> -->
     <div class="row">
-      <div class="col-md-3" style=" background-color: black;">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white" style="width: 280px">
-          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <div class="col-md-3" style=" background-color: #7abecc;">
+        <div
+          class="d-flex flex-column flex-shrink-0 p-3 text-white"
+          style="width: 280px" 
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+          >
             <svg class="bi me-2" width="40" height="32">
               <use xlink:href="#bootstrap"></use>
             </svg>
@@ -26,11 +33,11 @@
               </a>
               <!-- if user login show Subscribe and unSubscribe -->
               {% if request.user.id %}
-                {% if cat.Name in my_category %}
-                  <button type="button" class="btn btn-primary"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
+              {% if cat.Name in my_category %}
+                <button type="button" class="btn btn-outline-light"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
                 {% else %}
-                  <button type="button" class="btn btn-primary"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
-                {% endif %}
+                <button type="button" class="btn btn-outline-light"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
+              {% endif %}
               {% endif %}
             </li>
           {% endfor %}
@@ -44,15 +51,16 @@
             <img src="{% static 'img/' %}{{post.Picture}}" class="card-img-top" alt="..."/>
             <div class="card-body col-12 ">
               <h5 class="card-title">{{post.Title}}</h5>
-              <p class="card-text">{{post.Content}}</p>
-              <a href="{% url 'p_show' post.id %}">click</a>
+              <!-- <p class="card-text">{{post.Content}}</p> -->
+              <a href="{% url 'p_show' post.id %}">see more</a>
             </div>
           </div>
         {% endfor %}
 <!-- --------------------------------------------------------------- -->
       </div>
     </div>
-  </div>
+  <!-- </div> -->
+    <!-- </div> -->
   </body>
 </html>
 {% endblock %} 
