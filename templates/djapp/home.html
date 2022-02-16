@@ -6,9 +6,10 @@
 <html>
   <head></head>
   <body>
-    <div  style= "position: relative;">
+    <!-- <div class="container"> -->
+    <!-- <div  style= "position: relative;"> -->
     <div class="row">
-      <div class="col-md-3" style=" background-color: black;">
+      <div class="col-md-3" style=" background-color: #7abecc;">
         <div
           class="d-flex flex-column flex-shrink-0 p-3 text-white"
           style="width: 280px" 
@@ -40,9 +41,9 @@
               <!-- if user login show Subscribe and unSubscribe -->
               {% if request.user.id %}
               {% if cat.Name in my_category %}
-                <button type="button" class="btn btn-primary"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
+                <button type="button" class="btn btn-outline-light"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
                 {% else %}
-                <button type="button" class="btn btn-primary"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
+                <button type="button" class="btn btn-outline-light"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
               {% endif %}
               {% endif %}
             </li>
@@ -68,7 +69,8 @@
 <!-- --------------------------------------------------------------- -->
       </div>
     </div>
-  </div>
+  <!-- </div> -->
+    <!-- </div> -->
   </body>
 </html>
 {% endblock %}
