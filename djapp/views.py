@@ -52,9 +52,6 @@ def register(request):
                 msg = 'User account created for username: ' + signup_form.cleaned_data.get('username')
                 messages.info(request, msg)
                 return redirect('login')
-
-
-
         context = {'signup_form': signup_form}
         return render(request, 'djapp/register.html', context)
 
@@ -63,16 +60,16 @@ def register(request):
 def home(request):
     categoryyy = Category.objects.all()
     post = Post.objects.all()
-
-
     if request.user.id != None:
-        categori = CategoryMembership.objects.filter(userr=request.user.id)
-        context = {'categories': categoryyy,'mycategory':categori,'posts':post }
-        return render(request,'djapp/home.html',context=context)
+        x = []
+        cat = CategoryMembership.objects.filter(userr=request.user.id)
+        for i in cat :
+            x.append(i.categoryy.Name)      
+        context= {'categories': categoryyy,'my_category':x,'posts':post }
+        return render(request,'djapp/home.html',context)
     else:
         context = {'categories': categoryyy,'posts':post}
-        return render(request,'djapp/home.html',context=context)
-
+        return render(request,'djapp/home.html',context)
 
        
 @login_required(login_url='login')       

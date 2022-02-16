@@ -38,15 +38,13 @@
                 {{cat.Name}}
               </a>
               <!-- if user login show Subscribe and unSubscribe -->
-              {% if request.user.id %} {% if cat in mycategory %}
-              <button type="button" class="btn btn-primary">
-                <a href="/djapp/unsubscribe/{{cat.id}}">UnSubscribe</a>
-              </button>
-              {% else %}
-              <button type="button" class="btn btn-primary">
-                <a href="/djapp/subscribe/{{cat.id}}">Subscribe</a>
-              </button>
-              {% endif %} {% endif %}
+              {% if request.user.id %}
+              {% if cat.Name in my_category %}
+                <button type="button" class="btn btn-primary"><a href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a></button>
+                {% else %}
+                <button type="button" class="btn btn-primary"><a href="/djapp/subscribe/{{cat.id}}">Subscribe</a></button>
+              {% endif %}
+              {% endif %}
             </li>
             {% endfor %}
           </ul>
