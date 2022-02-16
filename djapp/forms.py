@@ -5,8 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 class UserForm(UserCreationForm):
     class Meta:
+        is_staff = forms.BooleanField(required=True, initial=True)
         model = User
-        fields = ('username', 'email', 'password1','password2')
+        fields = ('username', 'email', 'password1','password2','is_staff')
+        
+     
 
 class UForm(UserCreationForm):
     class Meta:
