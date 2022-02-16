@@ -43,13 +43,14 @@ def register(request):
     else:
         signup_form = UserForm()
         if(request.method =='POST'):
-            signup_form = UserForm(request.POST) #input from user
+            is_active = request.POST.get('is_staff')
+            signup_form = UserForm(request.POST, is_active==True) #input from user
             if(signup_form.is_valid()):
+                signup_form.instance.is_staff = True
                 signup_form.save()
                 msg = 'User account created for username: ' + signup_form.cleaned_data.get('username')
                 messages.info(request, msg)
                 return redirect('login')
-
 
         context = {'signup_form': signup_form}
         return render(request, 'djapp/register.html', context)
