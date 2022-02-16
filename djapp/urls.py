@@ -12,4 +12,6 @@ urlpatterns = [
     path('u_add', views.addUser,name='uadd'),    
     path('del/<u_id>', views.delUser,name='udel'),
     path('p_add', views.addPost,name='padd'),
+    path('post/<p_id>', views.showPost, name='p_show' ) ,
+    path('blog/', views.manageBlog, name='blog' ) ,
 ]

@@ -6,7 +6,7 @@
       <div class="text-end">
         <a href="{% url 'home' %}" class="btn btn-outline-light me-2">Home</a>
         {% if request.user.is_superuser %}
-        {% comment %} <a href="{% url 'blog' %}" class="btn btn-outline-light me-2">blog</a> {% endcomment %}
+         <a href="{% url 'blog' %}" class="btn btn-outline-light me-2">blog</a> 
         {% endif %}
         {% if request.user.id %}
         <a href="{% url 'signout' %}" class="btn btn-outline-light me-2">signout</a>

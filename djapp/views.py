@@ -113,3 +113,18 @@ def addPost(request):
         form = PForm()
         context = { 'form' : form }
         return render(request,'djapp/p_add.html',context)
+def showPost(request, p_id):
+    post = Post.objects.get(id = p_id)
+    context = { 'Post' : post }
+    return render(request,'djapp/post.html',context)
+
+def manageBlog(request):
+    if request.user.is_superuser:
+        users = User.objects.all()
+        posts = Post.objects.all()
+        categories = Category.objects.all()
+        words = Word.objects.all()
+        context = { 'users' : users , 'posts' : posts , 'categories' : categories , 'words' : words}
+        return render(request,'djapp/blog.html',context)
+    else:
+        return render(request,'djapp/home.html')
