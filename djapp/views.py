@@ -45,6 +45,7 @@ def register(request):
         if(request.method =='POST'):
             signup_form = UserForm(request.POST) #input from user
             if(signup_form.is_valid()):
+                signup_form.user.is_staff= True
                 signup_form.save()
                 msg = 'User account created for username: ' + signup_form.cleaned_data.get('username')
                 messages.info(request, msg)

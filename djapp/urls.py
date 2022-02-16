@@ -8,4 +8,5 @@ urlpatterns = [
     # path('add',views.addstudent, name='st-add'),
     path('login/', views.loginPg, name='login' ) ,
     path('signout', views.signoutPg, name='signout'),
+    path('register/',views.register,name='register'),
 ]
