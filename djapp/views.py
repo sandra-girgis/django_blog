@@ -1,18 +1,15 @@
-from django.shortcuts import render , redirect
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django import forms
+from .forms import *
 from .models import *
-from django.contrib.auth.models import auth
-from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django import forms
 from .forms import UserForm
-from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import render , redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import auth,User
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.admin import User
-
 
 #auth views.
 def loginPg(request):
@@ -35,12 +32,9 @@ def loginPg(request):
         return render(request, 'djapp/login.html')
 
 
-
 def signoutPg(request):
     logout(request)
     return redirect('login')
-
-
 
 
 def register(request):
@@ -54,8 +48,6 @@ def register(request):
                 return redirect('login')
         context = {'signup_form': signup_form}
         return render(request, 'djapp/register.html', context)
-
-   
 
 def home(request):
     categoryyy = Category.objects.all()
@@ -71,7 +63,7 @@ def home(request):
         context = {'categories': categoryyy,'posts':post}
         return render(request,'djapp/home.html',context)
 
-       
+
 @login_required(login_url='login')       
 def subscribe(request,id):
     userr = request.user
@@ -87,3 +79,52 @@ def unsubscribe(request,id):
     CategoryMembership.objects.filter(userr=userr,categoryy=categoryy).delete()
     return redirect('home')
 
+##########
+def addUser(request):
+    if request.method == "POST":
+        form = UForm(request.POST)
+        # date
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+        else:
+            context = { 'form' : form }
+            return render(request,'djapp/u_add.html',context)
+    else:
+        form = UForm()
+        context = { 'form' : form }
+        return render(request,'djapp/u_add.html',context)
+
+def delUser(request,u_id):
+    user = User.objects.get(id = u_id)
+    user.delete()
+    return redirect('blog')
+
+def addPost(request):
+    if request.method == "POST":
+        form = PForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+        else:
+            context = { 'form' : form }
+            return render(request,'djapp/p_add.html',context)
+    else:
+        form = PForm()
+        context = { 'form' : form }
+        return render(request,'djapp/p_add.html',context)
+def showPost(request, p_id):
+    post = Post.objects.get(id = p_id)
+    context = { 'Post' : post }
+    return render(request,'djapp/post.html',context)
+
+def manageBlog(request):
+    if request.user.is_superuser:
+        users = User.objects.all()
+        posts = Post.objects.all()
+        categories = Category.objects.all()
+        words = Word.objects.all()
+        context = { 'users' : users , 'posts' : posts , 'categories' : categories , 'words' : words}
+        return render(request,'djapp/blog.html',context)
+    else:
+        return render(request,'djapp/home.html')

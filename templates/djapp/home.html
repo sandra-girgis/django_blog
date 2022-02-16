@@ -1,7 +1,5 @@
 {% extends 'djapp/base.html' %}
 {% load static %} 
-{% block title_block %} 
-{% endblock %} 
 {% block main_block%}
 <html>
   <head></head>
@@ -27,12 +25,7 @@
           <ul class="nav nav-pills flex-column mb-auto">
             {% for cat in categories %}
             <li class="nav-item">
-              <a
-                href="#"
-                style="color: white"
-                class="nav-link"
-                aria-current="page"
-              >
+              <a href="#" style="color: white" class="nav-link" aria-current="page">
                 <svg class="bi me-2" width="16" height="16">
                   <use xlink:href="#home"></use>
                 </svg>
@@ -47,7 +40,7 @@
               {% endif %}
               {% endif %}
             </li>
-            {% endfor %}
+          {% endfor %}
           </ul>
         </div>
       </div>
@@ -55,14 +48,11 @@
       <div class="col-md-9">
         {% for post in posts %}
           <div class="card" style="width:100%">
-            <img
-              src="{% static 'img/' %}{{post.Picture}}"
-              class="card-img-top"
-              alt="..."
-            />
+            <img src="{% static 'img/' %}{{post.Picture}}" class="card-img-top" alt="..."/>
             <div class="card-body col-12 ">
               <h5 class="card-title">{{post.Title}}</h5>
-              <p class="card-text">{{post.Content}}</p>
+              <!-- <p class="card-text">{{post.Content}}</p> -->
+              <a href="{% url 'p_show' post.id %}">see more</a>
             </div>
           </div>
         {% endfor %}
@@ -73,4 +63,4 @@
     <!-- </div> -->
   </body>
 </html>
-{% endblock %}
+{% endblock %} 

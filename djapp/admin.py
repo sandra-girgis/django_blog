@@ -1,7 +1,5 @@
-#sandra
 from django.contrib import admin
 from .models import *
-
 #reem
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -9,6 +7,7 @@ class CategoryAdmin(admin.ModelAdmin):
     )
     list_display = ('Name',)
     search_fields = ['Name']
+
 #youmna
 class TagAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -20,15 +19,17 @@ class TagAdmin(admin.ModelAdmin):
 #omar
 class PostAdmin(admin.ModelAdmin):
     fieldsets = ( # picture is string [url]
-        ['User Details',{'fields':['Title','Picture','Content','Post_category','User_id','Tags']}], #'Likes','Dislikes','Date',
+        ['User Details',{'fields':['Title','Picture','Content','Post_category','Date','User_id','Tags']}], #'Likes','Dislikes','Date',
     )
-    list_display = ('Title','Picture','Content','Likes','Dislikes','Post_category','User_id') #'Date',
+    list_display = ('Title','Picture','Content','Likes','Dislikes','Post_category','Date','User_id') #'Date',
+
 #samah
 class PostlikeAdmin(admin.ModelAdmin):
     fieldsets = (
         ['User Details',{'fields':['Islike','Isdislike','Post_id','User_id']}],
     )
     list_display = ('Islike','Isdislike','Post_id','User_id')
+
 #rehab
 class WordAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -36,6 +37,7 @@ class WordAdmin(admin.ModelAdmin):
     )
     list_display = ('Name',)
     search_fields = ['Name']
+
 #sandra
 class CommentAdmin(admin.ModelAdmin):
     fieldsets = (

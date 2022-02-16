@@ -1,27 +1,24 @@
 #sandra
-# Create your models here.
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
 import django.utils
-
-
 #omar
 class Category(models.Model):
     Name = models.CharField(max_length = 50, null = False) 
     # Category object
     def __str__(self):
         return self.Name
-    
 #reem
 class Tag(models.Model):
-    Name = models.CharField(max_length = 50, null = False)
+    Name = models.CharField(max_length = 50, null = False,)
     def __str__(self):
         return self.Name
+
 #youmna
 class Post(models.Model):
     Title = models.CharField(max_length = 100, null = False)
-    Picture = models.CharField(max_length = 100, null = False)
+    Picture = models.ImageField(upload_to='static/img')
     Content = models.TextField(max_length = 4000, null = False)
     Date = models.DateTimeField(default=django.utils.timezone.now)
     Likes = models.IntegerField(default=0)
@@ -31,20 +28,22 @@ class Post(models.Model):
     Tags = models.ManyToManyField(Tag)
     def __str__(self):
         return self.Title
+
 #rehab
 class Comment(models.Model):
     Text = models.CharField(max_length = 100, null = False)
-    Time = models.DateTimeField()
+    Time = models.DateTimeField(default=django.utils.timezone.now)
     Post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     User_id = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.Text
-    
+
 #samah
 class Word(models.Model):
     Name = models.CharField(max_length = 50, null = False)
     def __str__(self):
         return self.Name
+
 #sandra
 class Postlike(models.Model):
     Islike = models.BooleanField(default=False)
