@@ -5,7 +5,9 @@
     <h3 class="card-title">{{ Post.User_id }}
     <span class="fs-6 fw-light">{{ Post.Date }}</span>
     </h3>
-    <img src="{% static Post.Picture %}" class="card-img-top" alt="...">
+    <div class="card" style="width:100%;">
+        <img src="{% static Post.Picture %}" class="card-img-top" alt="..."/>
+        <div class="card-body col-12 ">
     <div class="card-body">
         <span class="badge rounded-pill bg-primary">{{ Post.Post_category }}</span>
         {% for tag in Post.Tags.all %}

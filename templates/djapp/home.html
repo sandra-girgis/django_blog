@@ -37,7 +37,7 @@
       <div class="col-md-10">
         {% for post in posts %}
           <div class="card" style="width:100%;">
-            <img src="{% static 'img/' %}{{post.Picture}}" class="card-img-top" alt="..."/>
+            <img src="{% static post.Picture %}" class="card-img-top" alt="..."/>
             <div class="card-body col-12 ">
               <h5 class="card-title">{{post.Title}}</h5>
               <button type="button" class="btn btn-outline"style=" background-color: #7abecc;"><a href="{% url 'p_show' post.id %}"style="color:white">see more</a></button>

@@ -90,12 +90,12 @@ def showPost(request, p_id):
                 return redirect(f'/djapp/post/{p_id}')
         else:
             form = CommentForm()
-        pos = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=True,Isdislike=False)
+            pos = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=True,Isdislike=False)
         # pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
-        return render(request,'djapp/post.html',{'Post':post,'my_post':pos,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes,'data':post,'form':form,'comments':comments})
+            return render(request,'djapp/post.html',{'Post':post,'my_post':pos,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes,'data':post,'form':form,'comments':comments})
     else:    
         context = { 'Post' : post }
-        return render(request,'djapp/home.html',context)
+        return render(request,'djapp/post.html',context)
 
 # Category functions
 @login_required(login_url='login')       
@@ -114,7 +114,6 @@ def unsubscribe(request,id):
     return redirect('home')
 
 # like functions
-@login_required(login_url='login')       
 def like(request,id):
     user = request.user
     post = Post.objects.get(id=id)
@@ -122,7 +121,6 @@ def like(request,id):
     adding_to_model.save()
     return redirect('home')    
 
-@login_required(login_url='login')       
 def unlike(request,id):
     user = request.user
     post = Post.objects.get(id=id)
@@ -190,8 +188,7 @@ def delPost(requset, p_id):
     post.delete()
     return redirect('blog') 
 
-# manage blog page
-@login_required(login_url='login')  
+# manage blog page 
 def manageBlog(request):
     if request.user.is_superuser:
         users = User.objects.all()
