@@ -83,5 +83,11 @@ class PForm(forms.ModelForm):
             ),
         }
 
-
+class CommentForm(forms.ModelForm):
+  class Meta:
+    model=Comment
+    fields=('Text','User_id')
+    
+    def __str__(self):
+        return f"{self.Text} by {self.User_id}"
 

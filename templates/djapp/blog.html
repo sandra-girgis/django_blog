@@ -95,7 +95,7 @@
             <button class="btn btn-sm btn-warning">Edit</button>
           </a>
 
-          <a href="category/{{Post.id}}/delete">
+          <a href="{% url 'pdelete' Post.id %}">
             <button class="btn btn-sm btn-danger">delete</button>
           </a>
         </td>

@@ -107,17 +107,39 @@ def addPost(request):
         if form.is_valid():
             form.save()
             return redirect('blog')
-        else:
-            context = { 'form' : form }
-            return render(request,'djapp/p_add.html',context)
     else:
         form = PForm()
         context = { 'form' : form }
         return render(request,'djapp/p_add.html',context)
+
+@login_required(login_url='login')       
 def showPost(request, p_id):
     post = Post.objects.get(id = p_id)
-    context = { 'Post' : post }
+    comments = Comment.objects.filter(Post_id = post)
+    if request.method=='POST':
+       form = CommentForm(request.POST)
+       if form.is_valid():
+           comment = Comment(User_id= form.cleaned_data['User_id'],
+           Text=form.cleaned_data['Text'],
+           Post_id=post)
+           comment.save()
+           return redirect(f'/djapp/post/{p_id}')
+    else:
+        form = CommentForm()
+        context = {
+            'data':post,
+            'form':form,
+            'comments':comments,
+            'Post': post,
+            }
     return render(request,'djapp/post.html',context)
+
+def delPost(requset, p_id):
+    post = Post.objects.get(id = p_id)
+    post.delete()
+    return redirect('blog') 
+
+
 
 def manageBlog(request):
     if request.user.is_superuser:
