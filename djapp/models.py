@@ -59,3 +59,4 @@ class CategoryMembership(models.Model):
     categoryy = models.ForeignKey(Category,on_delete=models.CASCADE)
     def __str__(self):
         return self.userr.username + " subscribed To " +self.categoryy.Name
+
