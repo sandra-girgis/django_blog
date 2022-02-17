@@ -28,4 +28,5 @@ urlpatterns = [
     path('cat_add', views.addCatagory,name='Cadd'),
     path('cat_edit/<cat_id>', views.editCatagory,name='Cedit'),
     path('cat_del/<cat_id>', views.delCatagory,name='Cdelete'), 
+    path('categoryposts/<c_id>', views.categoryposts,name='categoryposts'), 
 ]

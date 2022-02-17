@@ -3,7 +3,7 @@
 
 {% block main_block %}
 <center>
-    {% if searched %}
+    {% if Posts %}
         {% for Post in Posts %}
             <div class="card mx-auto" style="width: 70%;">
                 <h3 class="card-title">{{ Post.User_id }}
@@ -34,7 +34,7 @@
         {% endfor %}
         {% else %}
             <h1>
-                No Search Found
+                There is no posts in this category
             </h1>
         {% endif %}
 </center>

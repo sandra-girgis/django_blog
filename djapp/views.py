@@ -209,6 +209,10 @@ def search(request):
     else:
         return render(request,'djapp/home.html')
 
+def categoryposts(request,c_id):
+    posts = Post.objects.filter(Post_category=c_id)
+    return render(request,'djapp/categoryposts.html',{'Posts':posts})
+
 #category's functions
 @login_required(login_url='login')  
 def addCatagory(request):
@@ -267,4 +271,4 @@ def editWord(request, w_id):
 def delWord(requset, w_id):
     word = Word.objects.get(id = w_id)
     word.delete()
-    return redirect('blog') 
+    return redirect('blog')
