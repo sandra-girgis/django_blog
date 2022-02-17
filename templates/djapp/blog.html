@@ -1,7 +1,6 @@
 {% extends 'djapp/base.html' %} {% load static %} {% block main_block %}
-
 <h3>Users Table</h3>
-<a href="{% url 'uadd' %}" class="btn btn-dark me-2">Add</a>
+<a href="{% url 'uadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
 <div class="table-responsive">
   <table class="table table-striped table-hover text-center">
     <caption>
@@ -47,7 +46,7 @@
 </div>
 
 <h3>Posts Table</h3>
-<a href="{% url 'padd' %}" class="btn btn-dark me-2">Add</a>
+<a href="{% url 'padd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
 <div class="table-responsive">
   <table class="table table-striped table-hover text-center" style="table-layout: fixed">
     <caption>
@@ -76,8 +75,7 @@
         <td>{{Post.User_id}}</td>
         <td>{{Post.Date}}</td>
         <td
-          style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-        >
+          style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
           {{Post.Content}}
         </td>
         <td>

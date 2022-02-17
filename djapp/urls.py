@@ -14,5 +14,6 @@ urlpatterns = [
     path('edit/<u_id>', views.editUser,name='uedit'),
     path('p_add', views.addPost,name='padd'),
     path('post/<p_id>', views.showPost, name='p_show' ) ,
-    path('blog/', views.manageBlog, name='blog' ) , 
+    path('blog/', views.manageBlog, name='blog' ) ,
+    path('search', views.search, name='search' ) ,
 ]

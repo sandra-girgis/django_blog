@@ -152,6 +152,19 @@ def addPost(request):
         context = { 'form' : form }
         return render(request,'djapp/p_add.html',context)
 
+# Post page
+def showPost(request, p_id):
+    # find post by post id
+    post = Post.objects.get(id = p_id)
+    # count post likes
+    post.Likes = Postlike.objects.filter(Post_id=p_id,Islike=True).count()
+    # count post dislikes
+    post.Dislikes = Postlike.objects.filter(Post_id=p_id,Isdislike=True).count()
+    # save counters in post db
+    post.save()
+    context = { 'Post' : post ,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes}# ,'like':Islike,'dislike':Isdislike
+    return render(request,'djapp/post.html',context)
+
 # search posts with tags or category
 def search(request):
     if request.method == "POST":
