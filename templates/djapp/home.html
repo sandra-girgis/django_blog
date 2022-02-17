@@ -36,16 +36,8 @@
 <!-- ------------------------------------------------------------------------- -->
       <div class="col-md-10">
         {% for post in posts %}
-<<<<<<< HEAD
-        
-          <div class="card" style="width: 100;">
-            <img src="{% static post.Picture %}"  width="20"
-            height="82" class="card-img-top mt-3" alt="..."/>
-          </div>
-=======
           <div class="card" style="width:100%;">
             <img src="{% static 'img/' %}{{post.Picture}}" class="card-img-top" alt="..."/>
->>>>>>> 9cc097b1e4190cf4f982a92e326276a8b2781248
             <div class="card-body col-12 ">
               <h5 class="card-title">{{post.Title}}</h5>
               <button type="button" class="btn btn-outline"style=" background-color: #7abecc;"><a href="{% url 'p_show' post.id %}"style="color:white">see more</a></button>
