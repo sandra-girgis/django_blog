@@ -1,12 +1,11 @@
 {% extends 'djapp/base.html' %}
 {% load static %}
-
 {% block main_block %}
-<div class="card mx-auto" style="width: 18rem;">
+<div class="card mx-auto" style="width: 70%;">
     <h3 class="card-title">{{ Post.User_id }}
     <span class="fs-6 fw-light">{{ Post.Date }}</span>
     </h3>
-    <img src="{% static 'img/' %}{{ Post.Picture }}" class="card-img-top" alt="...">
+    <img src="{% static Post.Picture %}" class="card-img-top" alt="...">
     <div class="card-body">
         <span class="badge rounded-pill bg-primary">{{ Post.Post_category }}</span>
         {% for tag in Post.Tags.all %}
@@ -22,6 +21,23 @@
                 <button type="button" class="btn btn-outline-light"><a href="/djapp/like/{{Post.id}}">Like</a></button>
               {% endif %}
     {% endif %}
-              
+    
+    <div class="row">
+        <span class="col-2">
+            <i class="bi bi-star-fill">{{ Likes_no }}</i> 
+        </span>
+        <span class="col-2">
+            <i class="bi bi-star">{{ Dislikes_no }}</i>
+        </span>
+    </div>
 </div>
+<form method="post">
+    {%csrf_token %}
+    <H2> Comment Here</H2>
+    {{form.as_p}}
+    <input type ="submit" value="Comment">
+</form>
+{%for comment in comments%}
+<p><strong>{{comment.User_id}}:</strong> <strong>{{comment.Text}} </strong> , <strong>{{comment.Time}}</strong></p>
+{%endfor %}
 {% endblock%}
