@@ -176,3 +176,67 @@ def search(request):
 
 # def categoryPosts(request,c_id):
 #     pass
+
+#category's functions 
+def addCatagory(request):
+    form = CategoryForm()
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+    context = {'form' : form }
+    return render(request, 'djapp/Cat_add.html', context)
+
+
+def editCatagory(request, cat_id):
+    category = Category.objects.get(id = cat_id)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+
+    form = CategoryForm(instance = category)
+    context = {'form': form}
+    return render(request,'djapp/CategoriesForm.html', context)
+
+
+def delCatagory(requset, cat_id):
+    category = Category.objects.get(id = cat_id)
+    category.delete()
+    return redirect('blog') 
+
+
+#undesired words function 
+
+def addWord(request):
+    form = BadWordsForm()
+    if request.method == 'POST':
+        form = BadWordsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+    context = {'form' : form }
+    return render(request, 'djapp/Bad_Words_Form.html', context)
+
+
+def editWord(request, w_id):
+    word = Word.objects.get(id = w_id)
+    if request.method == "POST":
+        form = BadWordsForm(request.POST, instance=word)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+
+    form = BadWordsForm(instance = word)
+    context = {'form': form}
+    return render(request,'djapp/Bad_Words_Form.html', context)
+
+
+def delWord(requset, w_id):
+    word = Word.objects.get(id = w_id)
+    word.delete()
+    return redirect('blog') 
+
+

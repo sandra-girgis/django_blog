@@ -2,6 +2,7 @@ from .models import *
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -82,3 +83,15 @@ class PForm(forms.ModelForm):
                 }
             ),
         }
+
+
+
+class BadWordsForm(forms.ModelForm):
+    class Meta:
+        model = Word
+        fields = ('Name',)
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('Name',)      

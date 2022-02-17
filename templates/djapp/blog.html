@@ -103,9 +103,14 @@
     </tbody>
   </table>
 </div>
+
+
+
+
 <div class="row">
   <div class="table-responsive col-6">
     <h3>Categories Table</h3>
+    <a href="{% url 'Cadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
     <table class="table table-striped table-hover text-center">
       <caption>
         Category's details
@@ -123,11 +128,11 @@
           <th scope="row">{{cat.id}}</th>
           <td>{{ cat }}</td>
           <td>
-            <a href="/category/{{cat.id}}/edit">
+            <a href="{% url 'Cedit' cat.id %}">
               <button class="btn btn-sm btn-warning">Edit</button>
             </a>
 
-            <a href="category/{{cat.id}}/delete">
+            <a href="{% url 'Cdelete' cat.id %}">
               <button class="btn btn-sm btn-danger">delete</button>
             </a>
           </td>
@@ -138,6 +143,8 @@
   </div>
   <div class="table-responsive col-6">
     <h3>Words Table</h3>
+    <a href="{% url 'Wadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
+
     <table class="table table-striped table-hover text-center">
       <caption>
         Words's details
@@ -155,11 +162,11 @@
           <th scope="row">{{word.id}}</th>
           <td>{{ word }}</td>
           <td>
-            <a href="/category/{{word.id}}/edit">
+            <a href="{% url 'Wedit' word.id %}">
               <button class="btn btn-sm btn-warning">Edit</button>
             </a>
 
-            <a href="category/{{word.id}}/delete">
+            <a href="{% url 'Wdelete' word.id %}">
               <button class="btn btn-sm btn-danger">delete</button>
             </a>
           </td>
