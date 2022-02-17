@@ -161,8 +161,6 @@ def addPost(request):
             return redirect('blog')
     context = {'form' : form }
     return render(request, 'djapp/p_add.html', context)
-   
-
 
 # Post page
 def showPost(request, p_id):
