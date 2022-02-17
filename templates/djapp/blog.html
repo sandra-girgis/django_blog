@@ -33,8 +33,9 @@
         <td style="color: red">Blocked</td>
         {% endif %}
         <td>
+          <a href="{% url 'uedit' user.id %}">
             <button class="btn btn-sm btn-warning">Edit</button>
-
+          </a>
           <a href="{% url 'udel' user.id %}">
             <button class="btn btn-sm btn-danger">delete</button>
           </a>

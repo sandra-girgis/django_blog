@@ -1,12 +1,57 @@
-{% extends 'djapp/base.html' %}
-{% block title_block %}
-<h1>Add User</h1>
-{% endblock %}
-    
-{% block main_block %}
-<form method = "POST"> {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-    <button type="reset">Cancel</button>
-</form>
+{% extends 'djapp/base.html' %} {% block main_block%}
+<div class="container">
+    <form method="POST" action="">
+        {% csrf_token %}
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label class="col-form-label">User Name</label>
+        </div>
+        <div class="col-auto">
+            {{ form.username }}
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label class="col-form-label">Email</label>
+        </div>
+        <div class="col-auto">
+            {{ form.email }}
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label class="col-form-label">Password</label>
+        </div>
+        <div class="col-auto">
+            {{ form.password1 }}
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+        <label class="col-form-label">Confirm Password</label>
+        </div>
+        <div class="col-auto">{{ form.password2 }}</div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            {{ form.is_superuser }} 
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label">Is Admin</label>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            {{ form.is_staff }}
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label">Is Active</label>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3 login_container">
+        <input class="btn btn-primary" type="submit" value="Add User" />
+    </div>
+    </form>
+    {{ form.errors }} 
+</div>
 {% endblock %}

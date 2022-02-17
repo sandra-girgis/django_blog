@@ -9,18 +9,18 @@ class UserForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1','password2','is_staff')
         
-     
 
 class UForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username','email','is_superuser','is_staff')
+        fields = ('username','email','password1','password2','is_superuser','is_staff')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'is_superuser':forms.CheckboxInput(),
-            'is_staff' : forms.CheckboxInput()
+            'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'is_superuser':forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_staff' : forms.CheckboxInput(attrs={'class': 'form-check-input'})
         }
 
 class PForm(forms.ModelForm):
@@ -82,6 +82,3 @@ class PForm(forms.ModelForm):
                 }
             ),
         }
-
-
-
