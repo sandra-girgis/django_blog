@@ -253,7 +253,7 @@ def addWord(request):
             form.save()
             return redirect('blog')
     context = {'form' : form }
-    return render(request, 'djapp/Bad_Words_Form.html', context)
+    return render(request, 'djapp/w_add.html', context)
 
 @login_required(login_url='login')  
 def editWord(request, w_id):

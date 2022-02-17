@@ -1,12 +1,15 @@
 {% extends 'djapp/base.html' %}
-{% block title_block %}
-<h1>Add Post</h1>
-{% endblock %}
-    
 {% block main_block %}
-<form method = "POST" enctype="multipart/form-data"> {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-    <button type="reset">Cancel</button>
-</form>
+<center>
+    <div class="container">
+        <div class="card p-5 align-items-center">
+            <h1>Add Post</h1>
+            <form method = "POST" enctype="multipart/form-data"> {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+                <button type="reset">Cancel</button>
+            </form>
+        </div>
+    </div>
+</center>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'djapp/base.html' %} 
 {% load static %} 
 {% block main_block %}
-
+<div class="container pt-3">
 <h3>Users Table</h3>
 <a href="{% url 'uadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
 <div class="table-responsive">
@@ -180,5 +180,6 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>
 {% endblock %}

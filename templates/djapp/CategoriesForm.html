@@ -1,12 +1,15 @@
 {% extends 'djapp/base.html' %}
-{% block title_block %}
-<h1>Categories Form</h3>
-{% endblock %}
-
 {% block main_block %}
-<form method = "POST"> {% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Save</button>
-<button type="reset">Cancel</button>
-</form>
-{% endblock %} 
+<center>
+    <h1>Edit Category</h1>
+    <div class="container">
+        <div class="card p-5 align-items-center">
+            <form method = "POST"> {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+                <button type="reset">Cancel</button>
+            </form>
+        </div>
+    </div>
+</center>
+{% endblock %}
