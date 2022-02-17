@@ -46,14 +46,16 @@
 <!-- ------------------------------------------------------------------------- -->
       <div class="col-md-10">
         {% for post in posts %}
-          <div class="card" style="width:100%">
-            <img src="{% static 'img/' %}{{post.Picture}}" class="card-img-top" alt="..."/>
+        
+          <div class="card" style="width: 100;">
+            <img src="{% static post.Picture %}"  width="20"
+            height="82" class="card-img-top mt-3" alt="..."/>
+          </div>
             <div class="card-body col-12 ">
               <h5 class="card-title">{{post.Title}}</h5>
               <!-- <p class="card-text">{{post.Content}}</p> -->
               <a href="{% url 'p_show' post.id %}">see more</a>
             </div>
-          </div>
         {% endfor %}
 <!-- --------------------------------------------------------------- -->
       </div>

@@ -2,6 +2,7 @@ from unicodedata import name
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('home/', views.home, name='home' ) ,
     path('register/', views.register, name='register' ) ,
@@ -12,6 +13,10 @@ urlpatterns = [
     path('u_add', views.addUser,name='uadd'),    
     path('del/<u_id>', views.delUser,name='udel'),
     path('p_add', views.addPost,name='padd'),
-    path('post/<p_id>', views.showPost, name='p_show' ) ,
+    path('pedit/<p_id>', views.editPost,name='pedit'),
     path('blog/', views.manageBlog, name='blog' ) ,
+
+    
+
+
 ]

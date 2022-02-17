@@ -3,8 +3,8 @@ from .models import *
 from django import forms
 from .forms import UserForm
 from django.contrib import messages
-from django.http import HttpResponse
-from django.shortcuts import render , redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render , redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth,User
@@ -58,7 +58,7 @@ def home(request):
         cat = CategoryMembership.objects.filter(userr=request.user.id)
         for i in cat :
             x.append(i.categoryy.Name)      
-        context= {'categories': categoryyy,'my_category':x,'posts':post }
+        context= {'categories': categoryyy,'my_category':x,'posts':post, 'u_id': request.user.id }
         return render(request,'djapp/home.html',context)
     else:
         context = {'categories': categoryyy,'posts':post}
@@ -96,28 +96,38 @@ def addUser(request):
         context = { 'form' : form }
         return render(request,'djapp/u_add.html',context)
 
+def editPost(request, p_id):
+    post = Post.objects.get(id = p_id)
+    if request.method == "POST":
+        form = PForm(request.POST,request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
+
+    form = PForm(instance = post)
+    context = {'form': form}
+    return render(request, 'djapp/p_add.html', context)
+
 def delUser(request,u_id):
     user = User.objects.get(id = u_id)
     user.delete()
     return redirect('blog')
 
 def addPost(request):
-    if request.method == "POST":
-        form = PForm(request.POST)
+    form = PForm()
+    if request.method == 'POST':
+
+        form = PForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('blog')
-        else:
-            context = { 'form' : form }
-            return render(request,'djapp/p_add.html',context)
-    else:
-        form = PForm()
-        context = { 'form' : form }
-        return render(request,'djapp/p_add.html',context)
-def showPost(request, p_id):
-    post = Post.objects.get(id = p_id)
-    context = { 'Post' : post }
-    return render(request,'djapp/post.html',context)
+    context = {'form' : form }
+    return render(request, 'djapp/p_add.html', context)
+   
+
+
+
+
 
 def manageBlog(request):
     if request.user.is_superuser:
@@ -129,3 +139,9 @@ def manageBlog(request):
         return render(request,'djapp/blog.html',context)
     else:
         return render(request,'djapp/home.html')
+
+
+
+
+
+

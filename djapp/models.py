@@ -18,7 +18,7 @@ class Tag(models.Model):
 #youmna
 class Post(models.Model):
     Title = models.CharField(max_length = 100, null = False)
-    Picture = models.ImageField(upload_to='static/img')
+    Picture = models.ImageField(upload_to='img/')
     Content = models.TextField(max_length = 4000, null = False)
     Date = models.DateTimeField(default=django.utils.timezone.now)
     Likes = models.IntegerField(default=0)

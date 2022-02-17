@@ -27,7 +27,7 @@ class PForm(forms.ModelForm):
     Post_category = forms.ModelChoiceField(
         queryset= Category.objects.all(),
             empty_label="Select Category",
-            widget=forms.Select(
+            widget =forms.Select(
                 attrs=
                 {
                     "class": "form-control selectpicker",
@@ -73,15 +73,7 @@ class PForm(forms.ModelForm):
                         'class': "form-control",
                     }
             ),
-            'Picture': forms.FileInput(
-                attrs={
-                    "class": "form-control clearablefileinput",
-                    "type": "file",
-                    "id": "PostImg",
-                    "name": "PostImg"
-                }
-            ),
+           
         }
-
 
 
