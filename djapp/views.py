@@ -166,6 +166,40 @@ def addPost(request):
 def showPost(request, p_id):
     # find post by post id
     post = Post.objects.get(id = p_id)
+    comments = Comment.objects.filter(Post_id = post)
+    if request.method=='POST':
+       form = CommentForm(request.POST)
+       if form.is_valid():
+           comment = Comment(User_id= form.cleaned_data['User_id'],
+           Text=form.cleaned_data['Text'],
+           Post_id=post)
+           comment.save()
+           return redirect(f'/djapp/post/{p_id}')
+    else:
+        form = CommentForm()
+        context = {
+            'data':post,
+            'form':form,
+            'comments':comments,
+            'Post': post,
+            }
+    return render(request,'djapp/post.html',context)
+
+def delPost(requset, p_id):
+    post = Post.objects.get(id = p_id)
+    post.delete()
+    return redirect('blog') 
+
+
+
+def manageBlog(request):
+    if request.user.is_superuser:
+        users = User.objects.all()
+        posts = Post.objects.all()
+        categories = Category.objects.all()
+        words = Word.objects.all()
+        context = { 'users' : users , 'posts' : posts , 'categories' : categories , 'words' : words}
+        return render(request,'djapp/blog.html',context)
     # count post likes
     post.Likes = Postlike.objects.filter(Post_id=p_id,Islike=True).count()
     # count post dislikes

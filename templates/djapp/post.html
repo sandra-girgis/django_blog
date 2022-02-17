@@ -24,5 +24,13 @@
         </span>
     </div>
 </div>
-
+<form method="post">
+    {%csrf_token %}
+    <H2> Comment Here</H2>
+    {{form.as_p}}
+    <input type ="submit" value="Comment">
+</form>
+{%for comment in comments%}
+<p><strong>{{comment.User_id}}:</strong> <strong>{{comment.Text}} </strong> , <strong>{{comment.Time}}</strong></p>
+{%endfor %}
 {% endblock%}
