@@ -14,4 +14,5 @@ urlpatterns = [
     path('p_add', views.addPost,name='padd'),
     path('post/<p_id>', views.showPost, name='p_show' ) ,
     path('blog/', views.manageBlog, name='blog' ) ,
+    path('search', views.search, name='search' ) ,
 ]

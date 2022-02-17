@@ -129,3 +129,12 @@ def manageBlog(request):
         return render(request,'djapp/blog.html',context)
     else:
         return render(request,'djapp/home.html')
+
+# search posts with tags or category
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        posts = Post.objects.filter(Tags__Name__icontains=searched) | Post.objects.filter(Post_category__Name__icontains=searched)
+        return render(request,'djapp/search.html',{'searched':searched,'Posts':posts})
+    else:
+        return render(request,'djapp/search.html')

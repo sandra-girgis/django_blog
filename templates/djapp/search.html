@@ -1,0 +1,31 @@
+{% extends 'djapp/base.html' %}
+{% load static %}
+
+{% block main_block %}
+<center>
+    {% if searched %}
+        {% for Post in Posts %}
+            <div class="card mx-auto" style="width: 18rem;">
+                <h3 class="card-title">{{ Post.User_id }}
+                <span class="fs-6 fw-light">{{ Post.Date }}</span>
+                </h3>
+                {% comment %} post content {% endcomment %}
+                <img src="{% static 'img/' %}{{ Post.Picture }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <span class="badge rounded-pill bg-primary">{{ Post.Post_category }}</span>
+                    {% for tag in Post.Tags.all %}
+                    <span class="badge rounded-pill bg-dark">{{ tag }}</span>
+                    {% endfor %} 
+                </div>
+                <h5 class="card-title">{{ Post.Title }}</h5>
+                <p class="card-text">{{ Post.Content }}</p>
+                {% comment %} likes & dislike counter {% endcomment %}
+            </div>
+        {% endfor %}
+        {% else %}
+            <h1>
+                No Search Found
+            </h1>
+        {% endif %}
+</center>
+{% endblock%}
