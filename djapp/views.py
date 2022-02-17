@@ -1,3 +1,5 @@
+from pickle import TRUE
+from pymysql import NULL
 from .forms import *
 from .models import *
 from django import forms
@@ -63,7 +65,18 @@ def home(request):
     else:
         context = {'categories': categoryyy,'posts':post}
         return render(request,'djapp/home.html',context)
-
+    
+        
+def showPost(request, p_id):
+    post = Post.objects.get(id = p_id)
+    user = request.user.id
+    if request.user.id !=None:
+        pos = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=True,Isdislike=False)
+        # pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
+        return render(request,'djapp/post.html',{'Post':post,'my_post':pos})
+    else:    
+     context = { 'Post' : post }
+     return render(request,'djapp/home.html',context)
 
 @login_required(login_url='login')       
 def subscribe(request,id):
@@ -80,6 +93,34 @@ def unsubscribe(request,id):
     CategoryMembership.objects.filter(userr=userr,categoryy=categoryy).delete()
     return redirect('home')
 
+@login_required(login_url='login')       
+def like(request,id):
+    user = request.user
+    post = Post.objects.get(id=id)
+    adding_to_model = Postlike(User_id=user,Post_id=post,Islike=True,Isdislike=False)
+    adding_to_model.save()
+    return redirect('home')    
+
+@login_required(login_url='login')       
+def unlike(request,id):
+    user = request.user
+    post = Post.objects.get(id=id)
+    Postlike.objects.filter(User_id=user,Post_id=post,Islike=True,Isdislike=False).delete()
+    return redirect('home')    
+# @login_required(login_url='login')       
+# def dislike(request,id):
+#     user = request.user
+#     post = Post.objects.get(id=id)
+#     adding_to_model = Postlike(User_id=user,Post_id=post,Isdislike=True,Islike=False)
+#     adding_to_model.save()
+#     return redirect('home')  
+
+# @login_required(login_url='login')       
+# def canceldislike(request,id):
+#     user = request.user
+#     post = Post.objects.get(id=id)
+#     Postlike.objects.filter(User_id=user,Post_id=post,Islike=False,Isdislike=True).delete()
+#     return redirect('home')        
 ##########
 def addUser(request):
     if request.method == "POST":
@@ -114,10 +155,7 @@ def addPost(request):
         form = PForm()
         context = { 'form' : form }
         return render(request,'djapp/p_add.html',context)
-def showPost(request, p_id):
-    post = Post.objects.get(id = p_id)
-    context = { 'Post' : post }
-    return render(request,'djapp/post.html',context)
+
 
 def manageBlog(request):
     if request.user.is_superuser:
@@ -129,3 +167,15 @@ def manageBlog(request):
         return render(request,'djapp/blog.html',context)
     else:
         return render(request,'djapp/home.html')
+
+
+# def post_view(request):
+#     qs = Post.objects.all()
+#     user = request.user
+
+#     context = {
+#         'qs':qs,
+#         'user':user,
+#     }
+
+#     return render(request,'djapp/post.html',context)
