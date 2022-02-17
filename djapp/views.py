@@ -1,3 +1,5 @@
+from pickle import TRUE
+from pymysql import NULL
 from .forms import *
 from .models import *
 from django import forms
@@ -66,30 +68,34 @@ def home(request):
         context = {'categories': categoryyy,'posts':post}
         return render(request,'djapp/home.html',context)
 
-# Post page
+# post page
 def showPost(request, p_id):
-    # find post by post id
     post = Post.objects.get(id = p_id)
+    comments = Comment.objects.filter(Post_id = post)
     # count post likes
     post.Likes = Postlike.objects.filter(Post_id=p_id,Islike=True).count()
     # count post dislikes
     post.Dislikes = Postlike.objects.filter(Post_id=p_id,Isdislike=True).count()
     # save counters in post db
     post.save()
-    context = { 'Post' : post ,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes}# ,'like':Islike,'dislike':Isdislike
-    return render(request,'djapp/post.html',context)
-
-# Manage blog page
-def manageBlog(request):
-    if request.user.is_superuser:
-        users = User.objects.all()
-        posts = Post.objects.all()
-        categories = Category.objects.all()
-        words = Word.objects.all()
-        context = { 'users' : users , 'posts' : posts , 'categories' : categories , 'words' : words}
-        return render(request,'djapp/blog.html',context)
-    else:
-        return render(request,'djapp/home.html')
+    user = request.user.id
+    if request.user.id !=None:
+        if request.method=='POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = Comment(User_id= form.cleaned_data['User_id'],
+                Text=form.cleaned_data['Text'],
+                Post_id=post)
+                comment.save()
+                return redirect(f'/djapp/post/{p_id}')
+        else:
+            form = CommentForm()
+        pos = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=True,Isdislike=False)
+        # pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
+        return render(request,'djapp/post.html',{'Post':post,'my_post':pos,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes,'data':post,'form':form,'comments':comments})
+    else:    
+        context = { 'Post' : post }
+        return render(request,'djapp/home.html',context)
 
 # Category functions
 @login_required(login_url='login')       
@@ -107,8 +113,23 @@ def unsubscribe(request,id):
     CategoryMembership.objects.filter(userr=userr,categoryy=categoryy).delete()
     return redirect('home')
 
-# User functions
-@login_required(login_url='login')  
+# like functions
+@login_required(login_url='login')       
+def like(request,id):
+    user = request.user
+    post = Post.objects.get(id=id)
+    adding_to_model = Postlike(User_id=user,Post_id=post,Islike=True,Isdislike=False)
+    adding_to_model.save()
+    return redirect('home')    
+
+@login_required(login_url='login')       
+def unlike(request,id):
+    user = request.user
+    post = Post.objects.get(id=id)
+    Postlike.objects.filter(User_id=user,Post_id=post,Islike=True,Isdislike=False).delete()
+    return redirect('home')
+
+@login_required(login_url='login') 
 def addUser(request):
     user_form = UForm()
     if request.method == "POST":
@@ -118,18 +139,6 @@ def addUser(request):
             return redirect('blog')
     context = { 'form' : user_form }
     return render(request,'djapp/u_add.html',context)
-
-def editPost(request, p_id):
-    post = Post.objects.get(id = p_id)
-    if request.method == "POST":
-        form = PForm(request.POST,request.FILES, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect('blog')
-
-    form = PForm(instance = post)
-    context = {'form': form}
-    return render(request, 'djapp/p_add.html', context)
 
 @login_required(login_url='login')  
 def delUser(request,u_id):
@@ -162,36 +171,27 @@ def addPost(request):
     context = {'form' : form }
     return render(request, 'djapp/p_add.html', context)
 
-# Post page
-def showPost(request, p_id):
-    # find post by post id
+@login_required(login_url='login')  
+def editPost(request, p_id):
     post = Post.objects.get(id = p_id)
-    comments = Comment.objects.filter(Post_id = post)
-    if request.method=='POST':
-       form = CommentForm(request.POST)
-       if form.is_valid():
-           comment = Comment(User_id= form.cleaned_data['User_id'],
-           Text=form.cleaned_data['Text'],
-           Post_id=post)
-           comment.save()
-           return redirect(f'/djapp/post/{p_id}')
-    else:
-        form = CommentForm()
-        context = {
-            'data':post,
-            'form':form,
-            'comments':comments,
-            'Post': post,
-            }
-    return render(request,'djapp/post.html',context)
+    if request.method == "POST":
+        form = PForm(request.POST,request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('blog')
 
+    form = PForm(instance = post)
+    context = {'form': form}
+    return render(request, 'djapp/p_add.html', context)
+
+@login_required(login_url='login')  
 def delPost(requset, p_id):
     post = Post.objects.get(id = p_id)
     post.delete()
     return redirect('blog') 
 
-
-
+# manage blog page
+@login_required(login_url='login')  
 def manageBlog(request):
     if request.user.is_superuser:
         users = User.objects.all()
@@ -200,14 +200,8 @@ def manageBlog(request):
         words = Word.objects.all()
         context = { 'users' : users , 'posts' : posts , 'categories' : categories , 'words' : words}
         return render(request,'djapp/blog.html',context)
-    # count post likes
-    post.Likes = Postlike.objects.filter(Post_id=p_id,Islike=True).count()
-    # count post dislikes
-    post.Dislikes = Postlike.objects.filter(Post_id=p_id,Isdislike=True).count()
-    # save counters in post db
-    post.save()
-    context = { 'Post' : post ,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes}# ,'like':Islike,'dislike':Isdislike
-    return render(request,'djapp/post.html',context)
+    else:
+        return render(request,'djapp/home.html')
 
 # search posts with tags or category
 def search(request):
@@ -216,12 +210,10 @@ def search(request):
         posts = Post.objects.filter(Tags__Name__icontains=searched) | Post.objects.filter(Post_category__Name__icontains=searched)
         return render(request,'djapp/search.html',{'searched':searched,'Posts':posts})
     else:
-        return render(request,'djapp/search.html')
+        return render(request,'djapp/home.html')
 
-# def categoryPosts(request,c_id):
-#     pass
-
-#category's functions 
+#category's functions
+@login_required(login_url='login')  
 def addCatagory(request):
     form = CategoryForm()
     if request.method == 'POST':
@@ -232,7 +224,7 @@ def addCatagory(request):
     context = {'form' : form }
     return render(request, 'djapp/Cat_add.html', context)
 
-
+@login_required(login_url='login')  
 def editCatagory(request, cat_id):
     category = Category.objects.get(id = cat_id)
     if request.method == "POST":
@@ -240,20 +232,18 @@ def editCatagory(request, cat_id):
         if form.is_valid():
             form.save()
             return redirect('blog')
-
     form = CategoryForm(instance = category)
     context = {'form': form}
     return render(request,'djapp/CategoriesForm.html', context)
 
-
+@login_required(login_url='login')  
 def delCatagory(requset, cat_id):
     category = Category.objects.get(id = cat_id)
     category.delete()
     return redirect('blog') 
 
-
 #undesired words function 
-
+@login_required(login_url='login')  
 def addWord(request):
     form = BadWordsForm()
     if request.method == 'POST':
@@ -264,7 +254,7 @@ def addWord(request):
     context = {'form' : form }
     return render(request, 'djapp/Bad_Words_Form.html', context)
 
-
+@login_required(login_url='login')  
 def editWord(request, w_id):
     word = Word.objects.get(id = w_id)
     if request.method == "POST":
@@ -272,15 +262,12 @@ def editWord(request, w_id):
         if form.is_valid():
             form.save()
             return redirect('blog')
-
     form = BadWordsForm(instance = word)
     context = {'form': form}
     return render(request,'djapp/Bad_Words_Form.html', context)
 
-
+@login_required(login_url='login')  
 def delWord(requset, w_id):
     word = Word.objects.get(id = w_id)
     word.delete()
     return redirect('blog') 
-
-

@@ -14,7 +14,14 @@
     </div>
     <h5 class="card-title">{{ Post.Title }}</h5>
     <p class="card-text">{{ Post.Content }}</p>
-    {% comment %} likes & dislike counter {% endcomment %}
+    {% if request.user.id %}
+              {% if my_post %}
+                <button type="button" class="btn btn-outline-light"><a href="/djapp/unlike/{{Post.id}}">Unlike</a></button>
+                {% else %}
+                <button type="button" class="btn btn-outline-light"><a href="/djapp/like/{{Post.id}}">Like</a></button>
+              {% endif %}
+    {% endif %}
+    
     <div class="row">
         <span class="col-2">
             <i class="bi bi-star-fill">{{ Likes_no }}</i> 

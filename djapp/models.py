@@ -22,12 +22,17 @@ class Post(models.Model):
     Content = models.TextField(max_length = 4000, null = False)
     Date = models.DateTimeField(default=django.utils.timezone.now)
     Likes = models.IntegerField(default=0)
+    liked = models.ManyToManyField(User, default=None,blank=True,related_name='liked')
+    # disliked = models.ManyToManyField(User, default=None,blank=True,related_name='disliked')
     Dislikes = models.IntegerField(default=0)
     Post_category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    User_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    User_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name='author')
     Tags = models.ManyToManyField(Tag)
     def __str__(self):
         return self.Title
+    @property    
+    def num_likes(self):
+        return self.liked.all().count()    
 
 #rehab
 class Comment(models.Model):
@@ -45,6 +50,15 @@ class Word(models.Model):
         return self.Name
 
 #sandra
+LIKE_CHOICES = (
+    ('Like','Like'),
+    ('Unlike','Unlike'),
+)
+
+# DISLIKE_CHOICES = (
+#     ('Dislike','Dislike'),
+#     ('Cancel_Dislike','Cancel_Dislike'),
+# )
 class Postlike(models.Model):
     Islike = models.BooleanField(default=False)
     Isdislike = models.BooleanField(default=False)
@@ -52,6 +66,9 @@ class Postlike(models.Model):
     User_id = models.ForeignKey(User, on_delete=models.CASCADE)
     Islike.boolean = True
     Isdislike.boolean = True
+    value = models.CharField(choices=LIKE_CHOICES,default='Like',max_length=10)
+    # value1 = models.CharField(choices=DISLIKE_CHOICES,default='Dislike',max_length=50)
+  
 
 
 class CategoryMembership(models.Model):

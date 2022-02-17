@@ -21,7 +21,7 @@ class PostAdmin(admin.ModelAdmin):
     fieldsets = ( # picture is string [url]
         ['User Details',{'fields':['Title','Picture','Content','Post_category','Date','User_id','Tags']}], #'Likes','Dislikes','Date',
     )
-    list_display = ('Title','Picture','Content','Likes','Dislikes','Post_category','Date','User_id') #'Date',
+    list_display = ('Title','Picture','Content','Dislikes','Post_category','Date','User_id') #'Date',
 
 #samah
 class PostlikeAdmin(admin.ModelAdmin):
