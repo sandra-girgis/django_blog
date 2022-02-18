@@ -1,17 +1,17 @@
 #<center>Django Blog Project</center>
 <b>The project contain landing page that display all posts and categories</b>
 
-![landing page](photos/landing.png)
+![landing page](photos/landing.jpeg)
 - <b>you can see the details for each post in a separite page</b>
     - post content
     - post likes counter 
     - post comments
     - if you are user you can like or comment on post
 
-![landing page](photos/show_post.png)
+![landing page](photos/show_post.jpeg)
 
 - <b>you can search for any post with category or tag</b>
-![landing page](photos/search.png)
+![landing page](photos/search.jpeg)
 
 - <b>you can see the posts in each category</b>
     - you can subscribe and unsubscribe any category
@@ -22,17 +22,17 @@
         - category
         - forbidden word
 
-![landing page](photos/user.png)
-![landing page](photos/post.png)
-![landing page](photos/category.png)
-![landing page](photos/word.png)
+![landing page](photos/user.jpeg)
+![landing page](photos/post.jpeg)
+![landing page](photos/category.jpeg)
+![landing page](photos/word.jpeg)
 
 - <b>finally your welcome to be one of our blog application</b>
     - you can register
     - and login our blog
 
-![landing page](photos/register.png)
-![landing page](photos/login.png)
+![landing page](photos/register.jpeg)
+![landing page](photos/login.jpeg)
 
 ### Contact Us
 
