@@ -1,4 +1,5 @@
-#<center>Django Blog Project</center>
+# Django Blog Project
+
 <b>The project contain landing page that display all posts and categories</b>
 
 ![landing page](photos/landing.jpeg)
@@ -11,6 +12,7 @@
 ![landing page](photos/show_post.jpeg)
 
 - <b>you can search for any post with category or tag</b>
+
 ![landing page](photos/search.jpeg)
 
 - <b>you can see the posts in each category</b>
