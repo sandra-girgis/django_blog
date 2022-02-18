@@ -2,32 +2,26 @@
 {% load static %} 
 {% block main_block%}
     <div class="row">
-      <div class="col-md-2" style=" background-color: #7abecc;">
+      <div class="col-md-3" style=" background-color: #7abecc;">
         <div
           class="d-flex flex-column flex-shrink-0 p-3 text-white"
           style="width: 280px" >
           <a href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Categories</span>
+            class="d-flex align-items-center ms-5 mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-1 mb-5">Categories</span>
           </a>
-          <hr/>
           <ul class="nav nav-pills flex-column mb-auto">
             {% for cat in categories %}
-            <li class="nav-item">
-              <a href="#" style="color: white" class="nav-link" aria-current="page">
-                <svg class="bi me-2" width="16" height="16">
-                  <use xlink:href="#home"></use>
-                </svg>
-                <a href="{% url 'categoryposts' cat.id %}">
+            <li class="nav-item p-1 mb-5 ms-2 row">
+                <a style=" text-decoration: none; color: white;" class="col-6 mt-1 fs-5" href="{% url 'categoryposts' cat.id %}">
                 {{cat.Name}}
                 </a>
-              </a>
               <!-- if user login show Subscribe and unSubscribe -->
               {% if request.user.id %}
               {% if cat.Name in my_category %}
-                <button type="button" class="btn btn-outline-light"><a href="/djapp/unsubscribe/{{cat.id}}" style= "color:rgb(75, 73, 73)">Unsubscribe</a></button>
+              <a class="btn btn-outline-light col-6" href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a>
                 {% else %}
-                <button type="button" class="btn btn-outline-light"><a href="/djapp/subscribe/{{cat.id}}" style="color:rgb(116, 116, 116)">Subscribe</a></button>
+              <a class="btn btn-outline-light col-6 " href="/djapp/subscribe/{{cat.id}}" >Subscribe</a>
               {% endif %}
               {% endif %}
             </li>
@@ -36,16 +30,16 @@
         </div>
       </div>
 <!-- ------------------------------------------------------------------------- -->
-      <div class="col-md-10">
+      <div class="col-md-9">
         {% for post in posts %}
-          <div class="card" style="width:100%;">
-            <img src="{% static post.Picture %}" class="card-img-top" alt="..."/>
+          <div class="card mb-3" style="width:100%;">
             <div class="card-body col-12 ">
-              <h5 class="card-title">{{post.Title}}</h5>
-              <button type="button" class="btn btn-outline"style=" background-color: #7abecc;"><a href="{% url 'p_show' post.id %}"style="color:white">see more</a></button>
-            </div>
+              <h3 class="card-title">{{post.Title}}</h3>
+              <button type="button" class="btn btn-outline"style=" background-color: #7abecc;"><a href="{% url 'p_show' post.id %}" style=" text-decoration: none; color: white;">see more</a></button>
+            </div> 
+            <img src="{% static post.Picture %}" class="card-img-top" alt="..."/>
+          </div>
         {% endfor %}
 <!-- --------------------------------------------------------------- -->
-      </div>
     </div>
 {% endblock %} 

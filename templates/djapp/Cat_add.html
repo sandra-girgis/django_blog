@@ -1,15 +1,15 @@
 {% extends 'djapp/base.html' %}
 {% block main_block %}
-<center>
-    <h1>Add Category</h1>
-    <div class="container">
-        <div class="card p-5 align-items-center">
-            <form method = "POST"> {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save</button>
-                <button type="reset">Cancel</button>
-            </form>
-        </div>
+<div class="container fs-4">
+    <div class="card align-items-center m-5 p-5">
+        <h5 class="card-title display-5 pb-3">Add Category</h5>
+        <form method = "POST"> {% csrf_token %}
+            {{ form.as_p }}
+            <div class="row pt-3">
+                <button class="btn col-5 offset-1 btn-lg btn-outline" style=" background-color: #7abecc;" type="submit">Save</button>
+                <button class="btn col-5 offset-1 btn-lg btn-danger"  type="reset">Cancel</button>
+            </div>
+        </form>
     </div>
-</center>
+</div>
 {% endblock %}

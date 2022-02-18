@@ -2,8 +2,8 @@
 {% load static %} 
 {% block main_block %}
 <div class="container pt-3">
-<h3>Users Table</h3>
-<a href="{% url 'uadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
+<h3 class="display-5">Users Table</h3>
+<a href="{% url 'uadd' %}" class="btn btn-lg btn-outline"style=" background-color: #7abecc;">Add</a>
 <div class="table-responsive">
   <table class="table table-striped table-hover text-center">
     <caption>
@@ -35,10 +35,10 @@
         <td style="color: red">Blocked</td>
         {% endif %}
         <td>
-          <a href="{% url 'uedit' user.id %}">
-            <button class="btn btn-sm btn-warning">Edit</button>
+          <a href="{% url 'uedit' user.id %}" style=" text-decoration: none;">
+            <button class="btn btn-sm btn-info">Edit</button>
           </a>
-          <a href="{% url 'udel' user.id %}">
+          <a href="{% url 'udel' user.id %}"style=" text-decoration: none;">
             <button class="btn btn-sm btn-danger">delete</button>
           </a>
         </td>
@@ -48,8 +48,8 @@
   </table>
 </div>
 
-<h3>Posts Table</h3>
-<a href="{% url 'padd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
+<h3 class="display-5">Posts Table</h3>
+<a href="{% url 'padd' %}" class="btn btn-lg btn-outline"style=" background-color: #7abecc;">Add</a>
 <div class="table-responsive">
   <table class="table table-striped table-hover text-center" style="table-layout: fixed">
     <caption>
@@ -95,11 +95,11 @@
 
         <td>
 
-          <a href="{% url 'pedit' Post.id %}">
-            <button class="btn btn-sm btn-warning">Edit</button>
+          <a href="{% url 'pedit' Post.id %}" style=" text-decoration: none;">
+            <button class="btn btn-sm btn-info">Edit</button>
           </a>
 
-          <a href="{% url 'pdelete' Post.id %}">
+          <a href="{% url 'pdelete' Post.id %}" style=" text-decoration: none;">
             <button class="btn btn-sm btn-danger">delete</button>
           </a>
         </td>
@@ -108,14 +108,10 @@
     </tbody>
   </table>
 </div>
-
-
-
-
 <div class="row">
   <div class="table-responsive col-6">
-    <h3>Categories Table</h3>
-    <a href="{% url 'Cadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
+    <h3 class="display-5">Categories Table</h3>
+    <a href="{% url 'Cadd' %}" class="btn btn-lg btn-outline"style=" background-color: #7abecc;">Add</a>
     <table class="table table-striped table-hover text-center">
       <caption>
         Category's details
@@ -133,11 +129,11 @@
           <th scope="row">{{cat.id}}</th>
           <td>{{ cat }}</td>
           <td>
-            <a href="{% url 'Cedit' cat.id %}">
-              <button class="btn btn-sm btn-warning">Edit</button>
+            <a href="{% url 'Cedit' cat.id %}" style=" text-decoration: none;">
+              <button class="btn btn-sm btn-info">Edit</button>
             </a>
 
-            <a href="{% url 'Cdelete' cat.id %}">
+            <a href="{% url 'Cdelete' cat.id %}" style=" text-decoration: none;">
               <button class="btn btn-sm btn-danger">delete</button>
             </a>
           </td>
@@ -147,8 +143,8 @@
     </table>
   </div>
   <div class="table-responsive col-6">
-    <h3>Words Table</h3>
-    <a href="{% url 'Wadd' %}" class="btn btn-outline"style=" background-color: #7abecc;">Add</a>
+    <h3 class="display-5">Words Table</h3>
+    <a href="{% url 'Wadd' %}" class="btn btn-lg btn-outline"style=" background-color: #7abecc;">Add</a>
 
     <table class="table table-striped table-hover text-center">
       <caption>
@@ -167,11 +163,11 @@
           <th scope="row">{{word.id}}</th>
           <td>{{ word }}</td>
           <td>
-            <a href="{% url 'Wedit' word.id %}">
-              <button class="btn btn-sm btn-warning">Edit</button>
+            <a href="{% url 'Wedit' word.id %}" style=" text-decoration: none;">
+              <button class="btn btn-sm btn-info">Edit</button>
             </a>
 
-            <a href="{% url 'Wdelete' word.id %}">
+            <a href="{% url 'Wdelete' word.id %}" style=" text-decoration: none;">
               <button class="btn btn-sm btn-danger">delete</button>
             </a>
           </td>
