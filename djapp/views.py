@@ -1,17 +1,17 @@
-from pickle import TRUE
-from pymysql import NULL
 from .forms import *
 from .models import *
+from pickle import TRUE
 from django import forms
+from pymysql import NULL
 from .forms import UserForm
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, render , redirect
 from django.http import HttpResponse
 from django.contrib.auth.admin import User
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import auth,User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from django.shortcuts import get_object_or_404, render , redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Register page
@@ -70,7 +70,9 @@ def home(request):
 
 # post page
 def showPost(request, p_id):
+    # search in post table for that specific post with id
     post = Post.objects.get(id = p_id)
+    # search in Comment table for all comments that is relative to that post
     comments = Comment.objects.filter(Post_id = post)
     # count post likes
     post.Likes = Postlike.objects.filter(Post_id=p_id,Islike=True).count()
@@ -91,7 +93,7 @@ def showPost(request, p_id):
         else:
             form = CommentForm()
             pos = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=True,Isdislike=False)
-        # pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
+            # pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
             return render(request,'djapp/post.html',{'Post':post,'my_post':pos,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes,'data':post,'form':form,'comments':comments})
     else:    
         context = { 'Post' : post }

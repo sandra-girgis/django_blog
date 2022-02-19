@@ -1,7 +1,23 @@
 from django.contrib import admin
 from .models import *
+
+"""" Admin panel 
+
+Keyword arguments:
+model -- take the model 'table' from model.py
+modelAdmin -- take the model that will display in the admin panel
+Return: the admin panel that display when enter localhost:admin
+"""
+
 #reem
 class CategoryAdmin(admin.ModelAdmin):
+    """custom display
+
+    Args:
+        fieldsets : the display of create category form
+        list_display : the display of the category list
+        search_fields : search fields to custom the list display
+    """
     fieldsets = (
         ['Category Details',{'fields':['Name']}],
     )
@@ -45,7 +61,9 @@ class CommentAdmin(admin.ModelAdmin):
     )
     list_display = ('Text','Post_id','User_id') #'Time',
 
-# to show the tables in the site
+    """admin page
+    that take (the table,custom display)
+    """
 #reem
 admin.site.register(Category,CategoryAdmin)
 #youmna
