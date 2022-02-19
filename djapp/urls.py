@@ -21,7 +21,6 @@ urlpatterns = [
     path('pdelete/<p_id>', views.delPost,name='pdelete'),
     path('post/<p_id>', views.showPost, name='p_show' ) ,
     path('search', views.search, name='search' ) ,
-    path('post/<p_id>', views.showPost, name='p_show' ) ,
     path('w_add', views.addWord,name='Wadd'),
     path('w_edit/<w_id>', views.editWord,name='Wedit'),
     path('w_del/<w_id>', views.delWord,name='Wdelete'),

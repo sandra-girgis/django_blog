@@ -54,7 +54,6 @@ LIKE_CHOICES = (
     ('Like','Like'),
     ('Unlike','Unlike'),
 )
-
 # DISLIKE_CHOICES = (
 #     ('Dislike','Dislike'),
 #     ('Cancel_Dislike','Cancel_Dislike'),
@@ -68,12 +67,9 @@ class Postlike(models.Model):
     Isdislike.boolean = True
     value = models.CharField(choices=LIKE_CHOICES,default='Like',max_length=10)
     # value1 = models.CharField(choices=DISLIKE_CHOICES,default='Dislike',max_length=50)
-  
-
 
 class CategoryMembership(models.Model):
     userr = models.ForeignKey(User,on_delete=models.CASCADE)
     categoryy = models.ForeignKey(Category,on_delete=models.CASCADE)
     def __str__(self):
         return self.userr.username + " subscribed To " +self.categoryy.Name
-

@@ -6,10 +6,10 @@ from django.forms import ModelForm
 
 class UserForm(UserCreationForm):
     class Meta:
-        is_staff = forms.BooleanField(required=True, initial=True)
+        # is_staff = forms.BooleanField(required=True, initial=True)
         model = User
         fields = ('username', 'email', 'password1','password2','is_staff')
-        
+
 
 class UForm(UserCreationForm):
     class Meta:
@@ -80,7 +80,7 @@ class PForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
   class Meta:
     model=Comment
-    fields=('Text','User_id')
+    fields=('Text',)
     
     def __str__(self):
         return f"{self.Text} by {self.User_id}"

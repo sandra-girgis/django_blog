@@ -35,7 +35,10 @@
           <div class="card mb-3" style="width:100%;">
             <div class="card-body col-12 ">
               <h3 class="card-title">{{post.Title}}</h3>
-              <button type="button" class="btn btn-outline"style=" background-color: #7abecc;"><a href="{% url 'p_show' post.id %}" style=" text-decoration: none; color: white;">see more</a></button>
+              <button type="button" class="btn btn-outline"style=" background-color: #7abecc;">
+                <a href="{% url 'p_show' post.id %}" style=" text-decoration: none; color: white;">
+                  see more</a>
+              </button>
             </div> 
             <img src="{% static post.Picture %}" class="card-img-top" alt="..."/>
           </div>

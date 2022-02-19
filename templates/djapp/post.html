@@ -39,7 +39,7 @@
         </form>
         {%for comment in comments%}
         <p><strong>{{comment.User_id}} : </strong> <strong>{{comment.Text}} </strong> , <strong>{{comment.Time}}</strong></p>
+    {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% endblock %}
