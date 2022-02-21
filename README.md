@@ -15,6 +15,13 @@
 
 ![landing page](photos/search.jpeg)
 
+- <b>if user blocked from admin he won't be able to :</b>
+    - subscribe or unsubscribe
+    - like or dislike any post
+    - read or write any comment
+
+![landing page](photos/block.jpeg)
+
 - <b>you can see the posts in each category</b>
     - you can subscribe and unsubscribe any category
 - <b>if you are admin you are admin you can access blog page</b>
