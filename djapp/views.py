@@ -118,8 +118,8 @@ def showPost(request, p_id):
             form = CommentForm()
             # find if the user already like that post or not
             pos = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=True,Isdislike=False)
-            # pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
-            return render(request,'djapp/post.html',{'Post':post,'my_post':pos,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes,'data':post,'form':form,'comments':comments})
+            pos1 = Postlike.objects.filter(User_id=user,Post_id=post.id,Islike=False,Isdislike=True)
+            return render(request,'djapp/post.html',{'Post':post,'my_post':pos,'my_post1':pos1,'Likes_no': post.Likes,'Dislikes_no': post.Dislikes,'data':post,'form':form,'comments':comments})
     else:    
         context = { 'Post' : post }
         return render(request,'djapp/post.html',context)
@@ -146,13 +146,29 @@ def like(request,id):
     post = Post.objects.get(id=id)
     adding_to_model = Postlike(User_id=user,Post_id=post,Islike=True,Isdislike=False)
     adding_to_model.save()
-    return redirect('home')    
+    Postlike.objects.filter(User_id=user,Post_id=post,Isdislike=True,Islike=False).delete()
+    return redirect(f'/djapp/post/{id}')  
 
 def unlike(request,id):
     user = request.user
     post = Post.objects.get(id=id)
     Postlike.objects.filter(User_id=user,Post_id=post,Islike=True,Isdislike=False).delete()
-    return redirect('home')
+    return redirect(f'/djapp/post/{id}')
+
+def dislike(request,id):
+    user = request.user
+    post = Post.objects.get(id=id)
+    adding_to_model = Postlike(User_id=user,Post_id=post,Islike=False,Isdislike=True)
+    adding_to_model.save()
+    Postlike.objects.filter(User_id=user,Post_id=post,Isdislike=False,Islike=True).delete()
+    return redirect(f'/djapp/post/{id}')  
+
+def undislike(request,id):
+    user = request.user
+    post = Post.objects.get(id=id)
+    Postlike.objects.filter(User_id=user,Post_id=post,Islike=False,Isdislike=True).delete()
+    return redirect(f'/djapp/post/{id}')
+
 
 @login_required(login_url='login') 
 def addUser(request):
@@ -209,7 +225,7 @@ def editPost(request, p_id):
     return render(request, 'djapp/p_add.html', context)
 
 @login_required(login_url='login')  
-def delPost(requset, p_id):
+def delPost(request, p_id):
     post = Post.objects.get(id = p_id)
     post.delete()
     return redirect('blog') 
@@ -224,7 +240,7 @@ def manageBlog(request):
         context = { 'users' : users , 'posts' : posts , 'categories' : categories , 'words' : words}
         return render(request,'djapp/blog.html',context)
     else:
-        return render(request,'djapp/home.html')
+        return redirect('home') 
 
 # search posts with tags or category
 def search(request):

@@ -12,20 +12,20 @@
           </a>
           <ul class="nav nav-pills flex-column mb-auto">
             {% for cat in categories %}
-            <li class="nav-item p-1 mb-5 ms-2 row">
+              <li class="nav-item p-1 mb-5 ms-2 row">
                 <a style=" text-decoration: none; color: white;" class="col-6 mt-1 fs-5" href="{% url 'categoryposts' cat.id %}">
-                {{cat.Name}}
+                  {{cat.Name}}
                 </a>
-              <!-- if user login show Subscribe and unSubscribe -->
-              {% if request.user.id %}
-              {% if cat.Name in my_category %}
-              <a class="btn btn-outline-light col-6" href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a>
-                {% else %}
-              <a class="btn btn-outline-light col-6 " href="/djapp/subscribe/{{cat.id}}" >Subscribe</a>
-              {% endif %}
-              {% endif %}
-            </li>
-          {% endfor %}
+                  <!-- if user login show Subscribe and unSubscribe -->
+                  {% if request.user.id and request.user.is_staff %}
+                    {% if cat.Name in my_category %}
+                      <a class="btn btn-outline-light col-6" href="/djapp/unsubscribe/{{cat.id}}">Unsubscribe</a>
+                    {% else %}
+                      <a class="btn btn-outline-light col-6 " href="/djapp/subscribe/{{cat.id}}" >Subscribe</a>
+                    {% endif %}
+                {% endif %}
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </div>

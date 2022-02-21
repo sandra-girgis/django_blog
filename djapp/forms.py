@@ -74,16 +74,15 @@ class PForm(forms.ModelForm):
                         'class': "form-control",
                     }
             ),
-           
         }
 
 class CommentForm(forms.ModelForm):
-  class Meta:
-    model=Comment
-    fields=('Text',)
-    
-    def __str__(self):
-        return f"{self.Text} by {self.User_id}"
+    class Meta:
+        model=Comment
+        fields=('Text',)
+        
+        def __str__(self):
+            return f"{self.Text} by {self.User_id}"
 
 class BadWordsForm(forms.ModelForm):
     class Meta:
